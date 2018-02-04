@@ -18,3 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::middleware(['auth'])->group(function(){
+
+    Route::resource('boards','BoardsController');
+    //Route::get('projects/create/{company_id?}','ProjectsController@create');
+    Route::resource('cards','CardsController');
+    Route::resource('sites','SitesController');
+    Route::resource('users','UsersController');
+
+});

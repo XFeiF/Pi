@@ -17,6 +17,14 @@ class BoardsController extends Controller
     public function index()
     {
         //
+        if(Auth::check()){
+            // dump(Auth::user()->id);
+
+            $boards = Board::where('user_id',Auth::user()->id)->get();
+        
+            return view('boards.index', ['boards' => $boards]);
+        }
+        return view('auth.login');
     }
 
     /**
@@ -49,6 +57,8 @@ class BoardsController extends Controller
     public function show(Board $board)
     {
         //
+        $board = Board::find($board->id);
+        return view('boards.show', ['board' => $board]);
     }
 
     /**

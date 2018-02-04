@@ -1,0 +1,44 @@
+.navbar-brand-centered {
+    position: absolute;
+    left: 50%;
+    display: block;
+    width: 160px;
+    text-align: center;
+    background-color: transparent;
+}
+
+.navbar>.container .navbar-brand-centered,
+.navbar>.container-fluid .navbar-brand-centered {
+    margin-left: -80px;
+}
+
+
+/* kanban */
+
+.kanban-col {
+    width: 300px;
+    margin-right: 20px;
+    float: left;
+}
+
+.img-wrap {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+.img-wrap img {
+    width: 18px;
+}
+
+.i-hidden {
+    display: none;
+}
+
+.i-father:hover .i-hidden {
+    display: inline;
+}
+
+.panel a {
+    text-decoration: none;
+}

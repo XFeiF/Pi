@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Power of Info'),
 
+    'sname' => env('APP_SNAME', 'PI'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
