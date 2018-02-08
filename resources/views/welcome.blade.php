@@ -85,7 +85,7 @@
                 <div class="links">
                     <a href="http://blog.x-fei.me">Blog</a>
                     <a href="https://github.com/XFeiF">GitHub</a>
-                    <a href="https://leetcode.com">LeetCode</a>
+                    <a href="https://leetcode.com/xfeif/">LeetCode</a>
                 </div>
             </div>
         </div>

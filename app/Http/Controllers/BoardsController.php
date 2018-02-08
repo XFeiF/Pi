@@ -61,6 +61,11 @@ class BoardsController extends Controller
         return view('boards.show', ['board' => $board]);
     }
 
+    public function opening($id=1){
+        $board = Board::find($id);
+        return view('boards.show', ['board' => $board]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
