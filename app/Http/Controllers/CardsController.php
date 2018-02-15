@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Card;
+use App\Board;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,6 +28,12 @@ class CardsController extends Controller
     public function create($board_id = null)
     {
         //
+        $boards = null;
+        if(!$board_id){
+            $boards = Board::where('user_id',Auth::user()->id)->get();
+        }
+        
+        return view('cards.create',['board_id'=>$board_id, 'boards'=>$boards]);
     }
 
     /**
@@ -38,6 +45,20 @@ class CardsController extends Controller
     public function store(Request $request)
     {
         //
+        if(Auth::check()){
+            $card = Card::create([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'board_id' => $request->input('board_id'),
+                'user_id' => Auth::user()->id
+            ]);
+            if($card){
+                return redirect()->route('boards.show',['board'=> $request->input('board_id')])
+                                 ->with('success','Card created successfully');
+            }
+        }
+
+        return back()->withInput()->withErrors(['1'=>'Please Login first', '2'=>'Failed create card']);
     }
 
     /**

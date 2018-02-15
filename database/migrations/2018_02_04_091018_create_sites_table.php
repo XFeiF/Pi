@@ -19,7 +19,7 @@ class CreateSitesTable extends Migration
             $table->string('url', 255)->nullable();
             $table->longText('description')->nullable();
             $table->string('logo', 255)->nullable();
-            $table->integer('level')->unsigned()->assign(1);
+            $table->integer('level')->unsigned()->default(3);
             $table->integer('card_id')->unsigned();
             
             $table->foreign('card_id')->references('id')->on('cards');

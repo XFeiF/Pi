@@ -35,6 +35,7 @@ class BoardsController extends Controller
     public function create()
     {
         //
+        return view('boards.create');
     }
 
     /**
@@ -46,6 +47,19 @@ class BoardsController extends Controller
     public function store(Request $request)
     {
         //
+        if(Auth::check()){
+            $board = Board::create([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'user_id' => Auth::user()->id
+            ]);
+            if($board){
+                return redirect()->route('boards.show',['board'=> $board->id])
+                                 ->with('success','Board created successfully');
+            }
+        }
+
+        return back()->withInput()->withErrors(['1'=>'Please Login first', '2'=>'Failed create board']);
     }
 
     /**
@@ -58,7 +72,8 @@ class BoardsController extends Controller
     {
         //
         $board = Board::find($board->id);
-        return view('boards.show', ['board' => $board]);
+        $board_c = 1;
+        return view('boards.show', ['board' => $board, 'board_c' => $board_c]);
     }
 
     public function opening($id=1){

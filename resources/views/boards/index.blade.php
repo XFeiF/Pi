@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<link href="{{ asset('css/boards.css') }}" rel="stylesheet">
 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
     @foreach($boards as $board)
     <div class="col-sm-6 col-lg-6 col-xs-6 col-md-6">

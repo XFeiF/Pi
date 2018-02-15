@@ -17,7 +17,7 @@ class CreateCardsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->integer('level')->unsigned()->assign(1);
+            $table->integer('level')->unsigned()->default(1);
             $table->integer('board_id')->unsigned();
             
             $table->foreign('board_id')->references('id')->on('boards');

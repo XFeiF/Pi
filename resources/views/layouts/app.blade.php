@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/pi.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/boards.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -33,13 +34,31 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:#65A3EB; font-size:18px;"><i class="fas fa-puzzle-piece"></i> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/boards/create">Create New Board</a></li>
-                            @if(\Request::is('boards/*'))  
+                            @if(isset($board_c))
                                 <li><a href="/cards/create/{{ $board->id }}" >Add Cards</a> </li>
-                            @else
+                            @else                 
                                 <li><a href="/cards/create/" >Add Cards</a> </li>
-                            @endif
+                            @endif 
+
+                            @if(isset($board_c))
                             <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                            <li>
+                            <a href="#" onclick="
+                            var result= confirm('Are you sure you wish to delete the project?');
+                            if(result){
+                            event.preventDefault();
+                            document.getElementById('delete-form').submit();
+                            }
+                            ">
+                            <span class="text-danger">Delete This Board</span>
+                            </a>
+                                <form id="delete-form" action="{{ route('boards.destroy',[$board->id]) }}"
+                                method="POST" style="display:none">
+                                <input type="hidden" name="_method" value="delete"/>
+                                {{ csrf_field() }}
+                                </form> 
+                            </li>
+                            @endif 
                         </ul>
                         </li>
                     </ul>
@@ -91,11 +110,19 @@
             </div>
         </nav>
 
-        @yield('content')
+        <div class="container-fluid">
+        @include('partials.errors')
+        @include('partials.success')
+
+            <div class="row">
+                @yield('content')        
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/board.js') }}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </body>
 </html>

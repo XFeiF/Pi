@@ -38,6 +38,21 @@ class SitesController extends Controller
     public function store(Request $request)
     {
         //
+        if(Auth::check()){
+            $site = Site::create([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'url'=> $request->input('url'),
+                'logo'=> $request->input('logo'),
+                'card_id' => $request->input('card_id')
+            ]);
+            if($site){
+                return redirect()->route('boards.show',['board'=> $request->input('board_id')])
+                                 ->with('success','Site added successfully');
+            }
+        }
+
+        return back()->withInput()->withErrors(['1'=>'Please Login first', '2'=>'Failed create site']);
     }
 
     /**
