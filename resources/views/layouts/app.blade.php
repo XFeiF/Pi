@@ -35,12 +35,13 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/boards/create">Create New Board</a></li>
                             @if(isset($board_c))
-                                <li><a href="/cards/create/{{ $board->id }}" >Add Cards</a> </li>
+                                <li><a href="/cards/create/{{ $board->id }}" >Add New Card</a> </li>
                             @else                 
-                                <li><a href="/cards/create/" >Add Cards</a> </li>
+                                <li><a href="/cards/create/" >Add New Card</a> </li>
                             @endif 
 
                             @if(isset($board_c))
+                            <li><a href="/boards/{{ $board->id }}/edit/" >Edit Board</a></li>
                             <li class="divider"></li>
                             <li>
                             <a href="#" onclick="

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Board;
+use App\Cards;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,6 +91,8 @@ class BoardsController extends Controller
     public function edit(Board $board)
     {
         //
+        $board = Board::find($board->id);
+        return view('boards.edit', ['board' => $board]);
     }
 
     /**
@@ -102,6 +105,18 @@ class BoardsController extends Controller
     public function update(Request $request, Board $board)
     {
         //
+        $boardUpdate = Board::where("id",$board->id)
+                                    ->update([
+                                    'name' => $request->input('name'),
+                                    'description' => $request->input('description')
+                                    ]);
+        if($boardUpdate){
+            return redirect()->route('boards.index')
+            ->with('success','Board updated successfully!');
+        }
+
+        //redirect
+        return back()->withInput();
     }
 
     /**
@@ -113,5 +128,16 @@ class BoardsController extends Controller
     public function destroy(Board $board)
     {
         //
+        $findBoard = Board::find( $board->id);
+    //     static::deleting(function($user) {
+    //         $user->photos()->delete();
+    //         $user->posts()->delete();
+    //    });
+        if($findBoard->delete()){
+            return redirect()->route('boards.index')
+                    ->with('success', 'Board deleted successfully');
+        }
+
+        return back()->withInput()->with('error', 'Board could not be deleted');
     }
 }

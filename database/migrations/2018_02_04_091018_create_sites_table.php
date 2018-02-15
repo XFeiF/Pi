@@ -22,7 +22,7 @@ class CreateSitesTable extends Migration
             $table->integer('level')->unsigned()->default(3);
             $table->integer('card_id')->unsigned();
             
-            $table->foreign('card_id')->references('id')->on('cards');
+            $table->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');
 
             $table->timestamps();
         });

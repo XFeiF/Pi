@@ -81,6 +81,8 @@ class CardsController extends Controller
     public function edit(Card $card)
     {
         //
+        $card = Card::find($card->id);
+        return view('cards.edit', ['card' => $card]);
     }
 
     /**
@@ -92,7 +94,21 @@ class CardsController extends Controller
      */
     public function update(Request $request, Card $card)
     {
-        //
+        // save data
+        $cardUpdate = Card::where("id",$card->id)
+                                    ->update([
+                                    'name' => $request->input('name'),
+                                    'description' => $request->input('description')
+                                    ]);
+        $card = Card::find($card->id);
+        $board_id = $card->board_id;
+        if($cardUpdate){
+            return redirect()->route('boards.show',['board' => $board_id])
+            ->with('success','Card updated successfully!');
+        }
+
+        //redirect
+        return back()->withInput();
     }
 
     /**
@@ -104,5 +120,13 @@ class CardsController extends Controller
     public function destroy(Card $card)
     {
         //
+        // $success = del($card);
+        $cardfind = Card::find($card->id);
+        if ($cardfind->delete()){
+            return back()->with('success', 'Card deleted successfully');
+        }
+        return back()->withInput()->with('error', 'Card could not be deleted');
     }
+
+    
 }

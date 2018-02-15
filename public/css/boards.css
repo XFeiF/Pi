@@ -130,3 +130,22 @@ body.modal-open #wrap {
     font-size: 50px;
     display: block;
 }
+
+
+/* sites */
+
+.sItem {
+    position: relative;
+    display: block;
+    padding: 6px 8px;
+    margin-bottom: -1px;
+    cursor: pointer;
+    border-radius: .5em;
+    -webkit-transition: .1s color ease, .1s padding-left ease, .1s background-color ease;
+    transition: .1s color ease, .1s padding-left ease, .1s background-color ease;
+}
+
+.sItem:hover {
+    background: rgba(0, 0, 0, 0.03);
+    color: rgba(0, 0, 0, 0.8);
+}

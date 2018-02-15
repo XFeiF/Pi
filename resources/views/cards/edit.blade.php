@@ -2,35 +2,35 @@
 
 @section('content')
     <div class="col-md-9 col-lg-9 col-sm-9 col-xs-offset-1">
-        <h1> Edit Board</h1>
+        <h1> Edit Card</h1>
         <div class="row col-md-12 col-lg-12 col-sm-12" style="background:white; margin:10px;">
-            <form method="post" action="{{ route('boards.update', [$board->id]) }}">
+            <form method="post" action="{{ route('cards.update', [$card->id]) }}">
                 {{ csrf_field() }}
     
                 <input type="hidden" name="_method" value="put">
 
                 <div class="form-group">
-                    <label for="board-name">Name<span class="required"></span></label>
+                    <label for="card-name">Name<span class="required"></span></label>
                     <input placeholder="Enter name" 
-                        id="board-name" 
+                        id="card-name" 
                         required 
                         name="name" 
                         spellcheck="false"
                         class="form-control"
-                        value="{{$board->name}}"
+                        value="{{$card->name}}"
                         />
                 </div> 
 
                 <div class="form-group">
-                    <label for="board-content">Description</label>
+                    <label for="card-content">Description</label>
                     <textarea placeholder="Enter description" 
                         style="resize: vertical"
-                        id="board-content"  
+                        id="card-content"  
                         name="description" 
                         rows="5"
                         spellcheck="false"
                         class="form-control autosize-target text-left">
-                        {{ $board->description }}
+                        {{ $card->description }}
                         </textarea>
                 </div>
 

@@ -7,40 +7,91 @@
      <div class="panel panel-primary kanban-col" id="wrap">
         <div class="panel-heading i-father">
             <span class="head-title">{{ $card->name }} </span>
-            <a href="#" style="color:white;" class="i-hidden"><i class="fa fa-cog pull-right " style="margin-top: 5px;"></i></a>
+            <div class="dropdown" style="display:inline;float:right">
+                
+                <a href="#" style="color:white;" class="i-hidden" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-cog pull-right " style="margin-top: 5px;"></i></a>
+                
+                <ul class="dropdown-menu" style="left: -65px;" aria-labelledby="dropdownMenu1">
+                    <li><a href="/cards/{{ $card->id }}/edit"><i class="fas fa-pencil-alt"></i> Modify</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" onclick="
+                            var result= confirm('Are you sure you wish to delete the Card?');
+                            if(result){
+                            event.preventDefault();
+                            document.getElementById('delete-{{$card->id}}-form').submit();
+                            }">
+                                <span class="text-danger"><i class="fas fa-trash"></i>  Delete</span> 
+                        </a>
+                        <form id="delete-{{$card->id}}-form" action="{{ route('cards.destroy',[$card->id]) }}"
+                            method="POST" style="display:none">
+                        <input type="hidden" name="_method" value="delete"/>
+                        {{ csrf_field() }}
+                        </form> 
+                    </li>
+                </ul>
+            </div>
         </div>
         @if(count($card->sites) > 0)
         <div class="panel-body">
             <div id="TODO" class="kanban-centered">
-                <ol class="list-unstyled">
+                <div class="list-group list-unstyled">
                     @foreach($card->sites as $site)
-                    <li class="" title="{{ $site->description }}">
-                        <a href="http://{{ $site->url }}" target="_blank" >
-                            <div class="img-wrap">
-                            <span></span>
-                            @if(isset($site->logo))
-                            <img src="{{ $site->logo }}" class="img-circle" />
-                            @else
-                            <i class="fa fa-compass"></i>
-                            @endif
-                            </div>
-                                {{ $site->name }}
-                        </a>
-                    </li>
+                    <div class="sItem i-father"  title="{{ $site->description }}">
+                        <div class="dropdown" style="display:inline;float:right">
+                            <a href="#" class="i-hidden"  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fas fa-ellipsis-h pull-right" style="margin-top:2px;"></i></a>
+                
+                            <ul class="dropdown-menu" style="left: -65px;" aria-labelledby="dropdownMenu2">
+                                <li>
+                                    <a href="/sites/{{ $site->id }}/edit"><i class="fas fa-pencil-alt"></i> Modify</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#" onclick="
+                                    var result= confirm('Are you sure you wish to delete the site?');
+                                    if(result){
+                                    event.preventDefault();
+                                    document.getElementById('delete-{{$site->id}}-form').submit();
+                                    }">
+                                        <span class="text-danger"><i class="fas fa-trash"></i>  Delete</span> 
+                                    </a>
+                                        <form id="delete-{{$site->id}}-form" action="{{ route('sites.destroy',[$site->id]) }}"
+                                            method="POST" style="display:none">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        {{ csrf_field() }}
+                                        </form> 
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content">
+                            <a href="http://{{ $site->url }}" target="_blank">
+                                
+                                    <div class="img-wrap">
+                                    <span></span>
+                                    @if(isset($site->logo))
+                                    <img src="{{ $site->logo }}" class="img-circle" />
+                                    @else
+                                    <i class="fa fa-compass"></i>
+                                    @endif
+                                    </div>
+                                        {{ $site->name }}
+                                
+                            </a>
+                        </div>
+                    </div>
                     @endforeach
-                </ol>
+                </div>
             </div>
         </div>
         @endif
         <div class="panel-footer" >
-            <a href="#" onclick="create({{$card->id}}, {{$board->id}})" data-toggle="modal" data-target="#newSite">Add a site...</a>
+            <a href="#" onclick="createSite({{$card->id}}, {{$board->id}})" data-toggle="modal" data-target="#newSite">Add a site...</a>
         </div>
     </div>
     @endforeach
     @endif
-     <!-- Modal -->
+     {{--  <!-- Modal new site-->  --}}
         <div class="modal fade" id="newSite" tabindex="-1" role="dialog" aria-labelledby="siteLabel" aria-hidden="true">
-        <div class="container">
+            <div class="container">
             <div class="row">
             <div class="col-sm-6 col-sm-offset-3" style="padding-top:100px;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
@@ -80,8 +131,6 @@
                             />
                     </div>
 
-                    
-
                     <div class="form-group">
                         <label for="site-content">Description</label>
                         <textarea placeholder="Enter description" 
@@ -100,7 +149,9 @@
                 </form>
             </div>
             </div>
+            </div>
         </div>
-        </div>
+    
+
 </div>
 @endsection
