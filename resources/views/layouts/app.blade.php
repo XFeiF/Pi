@@ -124,6 +124,13 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/board.js') }}"></script>
+    <script src="https://npmcdn.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script>
+        window.onload = function () {
+            var loadTime = window.performance.timing.domContentLoadedEventEnd-window.performance.timing.navigationStart;
+            console.log('Page load time is '+ loadTime);
+        }
+    </script>
 </body>
 </html>

@@ -20,13 +20,28 @@
 }
 
 
+/* mansory  */
+
+.grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.grid-item {
+    float: left;
+    width: 220px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
 /* kanban */
 
 .kanban-col {
     float: left;
     width: 15%;
     min-width: 100px;
-    margin: 10px;
 }
 
 .img-wrap {

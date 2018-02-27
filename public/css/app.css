@@ -6522,7 +6522,7 @@ button.list-group-item-danger.active:hover {
 }
 
 .panel {
-    margin-bottom: 22px;
+    margin-bottom: 6px;
     background-color: #fff;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -6531,7 +6531,9 @@ button.list-group-item-danger.active:hover {
 }
 
 .panel-body {
-    padding: 15px
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 15px;
 }
 
 .panel-body:after,

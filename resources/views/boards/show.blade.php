@@ -1,18 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12" >
+<div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 240 }' >
     @if(count($board->cards) > 0)
     @foreach($board->cards as $card)
-     <div class="panel panel-primary kanban-col" id="wrap">
+    <div class="grid-item">
+     <div class=" panel panel-primary" id="wrap">
         <div class="panel-heading i-father">
-            <span class="head-title">{{ $card->name }} </span>
+            <span class="head-title">{{ $card->name }}</span>
             <div class="dropdown" style="display:inline;float:right">
                 
                 <a href="#" style="color:white;" class="i-hidden" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-cog pull-right " style="margin-top: 5px;"></i></a>
                 
                 <ul class="dropdown-menu" style="left: -65px;" aria-labelledby="dropdownMenu1">
                     <li><a href="/cards/{{ $card->id }}/edit"><i class="fas fa-pencil-alt"></i> Modify</a></li>
+                    <li>
+                        <a href="#" onclick="createSite({{$card->id}}, {{$board->id}})" data-toggle="modal" data-target="#newSite"><i class="fas fa-plus"></i> Add website</a>
+                    </li>
                     <li role="separator" class="divider"></li>
                     <li><a href="#" onclick="
                             var result= confirm('Are you sure you wish to delete the Card?');
@@ -83,16 +87,21 @@
             </div>
         </div>
         @endif
+        @if(count($card->sites) === 0)
         <div class="panel-footer" >
             <a href="#" onclick="createSite({{$card->id}}, {{$board->id}})" data-toggle="modal" data-target="#newSite">Add a site...</a>
         </div>
+        @endif
+     </div>
     </div>
     @endforeach
     @endif
+</div>
+
      {{--  <!-- Modal new site-->  --}}
-        <div class="modal fade" id="newSite" tabindex="-1" role="dialog" aria-labelledby="siteLabel" aria-hidden="true">
-            <div class="container">
-            <div class="row">
+ <div class="modal fade" id="newSite" tabindex="-1" role="dialog" aria-labelledby="siteLabel" aria-hidden="true">
+    <div class="container">
+        <div class="row">
             <div class="col-sm-6 col-sm-offset-3" style="padding-top:100px;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
                 <form method="post" action="{{ route('sites.store') }}">
@@ -148,10 +157,23 @@
                     </div>
                 </form>
             </div>
-            </div>
-            </div>
         </div>
-    
-
+    </div>
 </div>
+
+    <script src="https://npmcdn.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
+    <script>
+        var elem = document.querySelector('.grid');
+        var msnry = new Masonry( elem, {
+        // options
+        itemSelector: '.grid-item',
+        columnWidth: 200
+        });
+
+        // element argument can be a selector string
+        //   for an individual element
+        var msnry = new Masonry( '.grid', {
+        // options
+        });
+    </script>
 @endsection
